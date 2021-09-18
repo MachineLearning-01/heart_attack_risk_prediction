@@ -18,22 +18,22 @@ def predict():
     if request.method == "POST":
 
         # age
-        Age = int(request.form['age'])
+        age = int(request.form['age'])
 
         # sex
         sex = request.form['Sex']
-        if sex == 'Male':
+        if sex == 'male':
             Sex = 1
         else:
             Sex = 0
 
         # Chest pain type
         chestpaintype = request.form['chestpaintype']
-        if chestpaintype == 'ASY':
+        if chestpaintype == 'asymptomatic':
             cpt = 0
-        elif chestpaintype == 'NAP':
+        elif chestpaintype == 'non-anginal_pain':
             cpt = 1
-        elif chestpaintype == 'ATA':
+        elif chestpaintype == 'atypical_angina':
             cpt = 2
         else:
             cpt = 3
@@ -53,9 +53,9 @@ def predict():
 
         # ECG
         ecg = request.form['ecg']
-        if ecg == 'Normal':
+        if ecg == 'normal':
             ECG = 0
-        elif ecg == 'LVH':
+        elif ecg == 'lvh':
             ECG = 1
         else:
             ECG = 2
@@ -65,25 +65,22 @@ def predict():
 
         # exercise angima
         ex_angima = request.form['pain']
-        if ex_angima == 'Yes':
+        if ex_angima == 'yes':
             angima = 1
         else:
             angima = 0
 
-        # oldpeak
-        oldpeak = float(request.form['peak'])
-
         # st segment
         st_segment = request.form['st']
-        if st_segment == 'Up':
+        if st_segment == 'up':
             st = 1
-        elif st_segment == 'Flat':
+        elif st_segment == 'flat':
             st = 0
         else:
             st = 2
 
         prediction = model.predict([[
-            Age,
+            age,
             Sex,
             cpt,
             BP,
@@ -92,7 +89,6 @@ def predict():
             ECG,
             heart_rate,
             angima,
-            oldpeak,
             st
         ]])
 
